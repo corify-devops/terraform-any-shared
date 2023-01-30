@@ -45,6 +45,10 @@ locals {
       run_as_user: ${var.build_job_run_container_as_user}
     %{~endif~}
     [runners.kubernetes.volumes]
+      [[runners.kubernetes.volumes.empty_dir]]
+        name = "docker-certs"
+        mount_path = "/certs/client"
+        medium = "Memory"
     %{~if var.build_job_mount_docker_socket~}
       [[runners.kubernetes.volumes.host_path]]
         name = "docker-socket"
